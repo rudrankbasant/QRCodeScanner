@@ -1,2 +1,3 @@
 # QRCodeScanner
-App that scans QR Codes. Uses Camera permissions.
+App that scans QR Codes. <br/>
+Uses Camera permissions.
