@@ -1,16 +1,19 @@
 package com.example.qrcodescanner
 
-import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.budiyev.android.codescanner.*
+
 
 private const val CAMERA_REQ_CODE = 101
 
@@ -18,7 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var codeScanner: CodeScanner
     private lateinit var scanner_view: CodeScannerView
     private lateinit var tv_textview: TextView
-    private lateinit var mFlashButton: ImageView
+    private lateinit var browserButton: Button
+    private var link: String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +30,10 @@ class MainActivity : AppCompatActivity() {
         setupPermissions()
         scanner_view = findViewById(R.id.scanner_view)
         tv_textview=findViewById(R.id.tv_textview)
+        browserButton=findViewById(R.id.browserButton)
         codeScan()
+
+
     }
 
     private fun codeScan() {
@@ -44,8 +51,14 @@ class MainActivity : AppCompatActivity() {
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
                 tv_textview.text = it.text
-
                 //Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
+                link = it.text.toString()
+                browserButton.isVisible = true
+                browserButton.setOnClickListener {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                    startActivity(browserIntent)
+
+                }
             }
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS

@@ -26,6 +26,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_marginTop="400dp"
         android:layout_marginBottom="303dp" />
+
+    <Button
+        android:id="@+id/browserButton"
+        android:visibility="invisible"
+        android:backgroundTint="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scanner_view"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="275dp"
+        android:layout_marginBottom="8dp"
+        android:text="Open in Browser" />
 </RelativeLayout>
